@@ -8,6 +8,7 @@
 , tomli
 , pytestCheckHook
 , build
+, hatchling
 , pydantic
 , pytest-mock
 , git
@@ -33,9 +34,12 @@ buildPythonPackage rec {
       --replace "--no-cov-on-fail" ""
   '';
 
+  nativeBuildInputs = [
+    setuptools
+  ];
+
   propagatedBuildInputs = [
     packaging
-    setuptools
   ] ++ lib.optionals (pythonOlder "3.10") [
     importlib-metadata
   ] ++ lib.optionals (pythonOlder "3.11") [
@@ -45,6 +49,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [
     pytestCheckHook
     build
+    hatchling
     pydantic
     pytest-mock
     git
