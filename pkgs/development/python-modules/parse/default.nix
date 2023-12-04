@@ -15,6 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-InYOgqTvMvQ/HWIa0WrJ4M2LL4LL87KwBst8yYnt3dk=";
   };
 
+  postPatch = ''
+    rm .pytest.ini
+  '';
+
   nativeBuildInputs = [
     setuptools
   ];
