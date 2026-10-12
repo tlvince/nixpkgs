@@ -140,6 +140,10 @@ stdenv.mkDerivation (finalAttrs: {
     (cmakeBool "ENABLE_SYSTEM_SNAPPY" true)
     (cmakeBool "ENABLE_SYSTEM_TBB" true)
     (cmakeBool "ENABLE_ARM_COMPUTE_CMAKE" true)
+  ]
+  # No SVE: SIGILLs on SVE-less SoCs.
+  ++ lib.optionals stdenv.hostPlatform.isAarch64 [
+    (cmakeBool "ENABLE_SVE" false)
   ];
 
   # src/graph/src/plugins/intel_gpu/src/graph/include/reorder_inst.h:24:8: error: type 'struct typed_program_node' violates the C++ One Definition Rule [-Werror=odr]
