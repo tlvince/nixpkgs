@@ -21,6 +21,7 @@
   libuuid,
   libvorbis,
   libwebp,
+  oniguruma,
   tokenizers-cpp,
   xrt,
 
@@ -89,6 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
     libuuid
     libvorbis
     libwebp
+    oniguruma
     tokenizers-cpp
     xrt.xdna
   ];
@@ -107,6 +109,8 @@ stdenv.mkDerivation (finalAttrs: {
   env.NIX_LDFLAGS = toString [
     "-L${lib.getLib tokenizers-cpp.tokenizers-c}/lib"
     "-ltokenizers_c"
+    # `libtokenizers_c.a` does not record its dependency on oniguruma
+    "-lonig"
   ];
 
   # Video inputs are decoded by dlopen-ing FFmpeg 6, 7 or 8 (libavformat.so.62 & co.)
