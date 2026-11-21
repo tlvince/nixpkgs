@@ -6,6 +6,7 @@
   cmake,
   pkg-config,
   msgpack-cxx,
+  oniguruma,
   sentencepiece,
 }:
 
@@ -46,6 +47,10 @@ let
           "*out_len = (*handle).id_to_token_result.len();" \
           "*out_len = (&(*handle).id_to_token_result).len();"
     '';
+
+    nativeBuildInputs = [ pkg-config ];
+
+    buildInputs = [ oniguruma ];
 
     meta = {
       description = "C FFI bindings for the Hugging Face tokenizers library";
